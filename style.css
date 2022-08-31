@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box;
+    }
+
+    .content {
+        border: 3px solid black;
+        border-radius: 10px;
+    }
+
+    .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 30px;
+        height: 100%;
+        row-gap: 10px;
+        column-gap: 10px;
+    }
+
+    .card {
+        height: 100%;
+        border-radius: 10px;
+        box-shadow: 5px 5px 5px rgba(90, 84, 84, 0.288);
+    }
+
+    .pot-number {
+        font-weight: bold;
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    #progress {
+        appearance: none;
+    }
+    #progress::-webkit-progress-bar {
+        background:#f0f0f0;
+        border-radius:10px;
+        box-shadow: inset 3px 3px 10px #ccc;
+    }
+    #progress::-webkit-progress-value {
+        border-radius:10px;
+        background: #1D976C;
+        background: -webkit-linear-gradient(to right, #93F9B9, #1D976C);
+        background: linear-gradient(to right, #93F9B9, #1D976C);
+
+    }
