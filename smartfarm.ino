@@ -82,7 +82,7 @@ void setup(){
 
     // 습도 값 불러오기
     for(int i = 0; i < EEPROM.length(); i++){
-        if(EEPROM.read(i) > 100) continue;
+        if(EEPROM.read(i) > 100) continue; // 초기화 된 EEPROM의 초기값이 255였음.
         if(i < 24){
             soilHumidity1[i] = EEPROM.read(i);
         }else{
@@ -146,7 +146,7 @@ void loop() {
     minute = timeClient.getMinutes();
     second = timeClient.getSeconds();
 
-    year = ptm->tm_year+1900;
+    year = ptm->tm_year+1900; // 현재 년도와 맞춰주기 위해 1900을 더해준다.
     month = ptm->tm_mon+1;
     day = ptm->tm_mday;
 
@@ -203,6 +203,13 @@ void loop() {
                 EEPROM.write(i, 0);
             }
             writeLog("EEPROM 초기화");
+            
+            // 수분값 초기화
+            for(int i = 0; i < 24; i++){
+                soilHumidity1[i] = 0;
+                soilHumidity2[i] = 0;
+            }
+            writeLog("토양 수분값 초기화");
         }
 
         if(hour >= 6 && hour <= 19){ // 낮시간동안 켜짐
@@ -290,7 +297,7 @@ void loop() {
                         <button type=\"button\" class=\" rounded-r inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out\" onclick=\"location.href='/motor/sub/off'\">Off</button></div></div>");
     client.println("</div>"); // <div class="basis-1/2 relative">
 
-    // 온습도, 메모리
+    // 온,습도
     client.println("<div class=\"basis-1/4\">");
     client.println("<div><span class=\"text-2xl\">온도: </span>");
     client.print("<span class=\"text-2xl font-bold\">");
