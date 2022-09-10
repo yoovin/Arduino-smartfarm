@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="refresh" content="3;url=file:///Users/yoovinshim/Desktop/Yoovin/kodi/Arduino/Arduino-smartfarm/main.html"> -->
+    <!-- <meta http-equiv="refresh" content="5"> -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Smart Farm</title>
+</head>
+<body>
+    <div class="text-8xl p-8 font-bold">
+        <a href="/">Smart Farm</a>
+    </div>
+    <div class="border-4 border-gray-800 rounded m-2 p-2">
+        <div class="flex flex-row mb-6">
+            <div class="basis-1/2 relative mb-6">
+                <span class="text-2xl">LED: <span class="text-2xl font-bold text-green-400">ON</span></span>
+                <div class="flex">
+                    <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
+                        <button type="button" class="rounded-l inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out" onclick="location.href='./led/on'">On</button>
+                        <button type="button" class=" rounded-r inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out" onclick="location.href='./led/off'">Off</button>
+                    </div>
+                </div>
+            </div>
+            <div class="basis-1/2 relative">
+                <span class="text-2xl">물빼기 모터: <span class="text-2xl font-bold text-green-400">ON</span></span>
+                <div class="flex">
+                    <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
+                        <button type="button" class="rounded-l inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out" onclick="location.href='./motor/sub/on'">On</button>
+                        <button type="button" class=" rounded-r inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out" onclick="location.href='./motor/sub/on'">Off</button>
+                    </div>
+                </div>
+            </div>
+            <div class="basis-1/4">
+                <div>
+                    <span class="text-2xl">온도: </span>
+                    <span class="text-2xl font-bold">00<span class="text-red-600">°C</span></span>
+                </div>
+                <div>
+                    <span class="text-2xl">습도: </span>
+                    <span class="text-2xl font-bold">00%</span>
+                </div>
+            </div>
+        </div>
+        <div class="h-fit grid grid-cols-2 gap-4 text-center">
+            <div class="border-2 border-violet-400 rounded shadow-lg">
+                <span class="mb-1 text-2xl font-bold">1번 화분</span>
+                <hr/>
+                <div class="mb-3 mt-3 text-3xl font-bold">모터 <span class="text-3xl font-bold text-green-400">ON</span>
+                    <div class="flex items-center justify-center">
+                    </div>
+                </div>
+                <div class="mb-1 text-lg font-bold">수분</div>
+                    <div class="mx-auto w-9/12 h-6 bg-gray-200 rounded-full dark:bg-gray-700">
+                    <div class="h-6 bg-gradient-to-r from-cyan-500 to-indigo-500 rounded-full font-bold text-slate-200" style="width: 50%">50%</div>
+                </div>
+
+                <div class="p-5 shadow-lg rounded-lg overflow-hidden">
+                    <div class="py-3 px-5 bg-gray-50 font-bold">2022-09-10 1번 화분 수분량</div>
+                    <canvas class="p-1" id="chartLine1"></canvas>
+                </div>
+
+            </div>
+            <div class="border-2 border-violet-400 rounded">
+                <span class="mb-1 text-2xl font-bold">2번 화분</span>
+                <hr/>
+                <div class="mb-3 mt-3 text-3xl font-bold">모터 <span class="text-3xl font-bold">OFF</span></div>
+                <div class="mb-2 text-lg font-bold">수분</div>
+                    <div class="mb-3 mx-auto w-9/12 h-6 bg-gray-200 rounded-full dark:bg-gray-700">
+                    <div class="h-6 bg-gradient-to-r from-cyan-500 to-indigo-500 rounded-full font-bold text-slate-200" style="width: 70%">70%</div>
+                </div>
+
+                <div class="p-5 shadow-lg rounded-lg overflow-hidden">
+                    <div class="py-3 px-5 bg-gray-50 font-bold">2022-09-10 2번 화분 수분량</div>
+                    <canvas class="p-1" id="chartLine2"></canvas>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="m-2 mb-0 p-2 pl-4 rounded-t-lg bg-slate-400">
+        <span class="text-4xl font-bold">Log</span>
+    </div>
+    <div class="m-2 mt-0 p-2 pl-4 bg-slate-600 font-bold text-white overflow-scroll" style="height: 30vh;">
+        <div></div>
+        <div>2022-09-10 04:19:21 | 아두이노 켜짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+        <div>2022-9-10 05:34:42 | 사용자로 인해 led 꺼짐</div>
+    </div>
+</body>
+
+<!-- Required chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Chart line -->
+<script>
+const humidity = [[0, 10, 5, 2, 20, 30, 45, 100], [0, 10, 5, 2, 20, 30, 45, 82]]
+const labels = ["0시", "1시", "2시", "3시", "4시", "5시", "6시", "7시", "8시", "9시", "10시", "11시", "12시", "13시", "14시", "15시", "16시", "17시", "18시", "19시", "20시", "21시", "22시", "23시"]
+const data = [{
+    labels: labels,
+    datasets: [{
+        label: "수분량",
+        backgroundColor: "hsl(252, 82.9%, 67.8%)",
+        borderColor: "hsl(252, 82.9%, 67.8%)",
+        data: humidity[0],},
+    ],},{
+    labels: labels,
+    datasets: [{
+        label: "수분량",
+        backgroundColor: "hsl(252, 82.9%, 67.8%)",
+        borderColor: "hsl(252, 82.9%, 67.8%)",
+        data: humidity[1],},],}]
+var chartLine = new Chart(
+    document.getElementById("chartLine1"),
+    {type: "line",
+    data:data[0],
+    options: {},})
+var chartLine2 = new Chart(
+    document.getElementById("chartLine2"),
+    {
+    type: "line",
+    data:data[1],
+    options: {},})
+</script>
+</html>
